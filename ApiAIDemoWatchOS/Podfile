@@ -1,0 +1,19 @@
+# Uncomment this line to define a global platform for your project
+platform :ios, '7.0'
+
+target 'ApiAIDemoWatchOS' do
+    pod 'ApiAI/AudioFileConverter' #, :path => '../'
+    pod 'ApiAI/VoiceFileRequest' #, :path => '../'
+end
+
+target 'ApiAIDemoWatchOS WatchKit App' do
+
+end
+
+target 'ApiAIDemoWatchOS WatchKit Extension' do
+    platform :watchos, '2.0'
+    
+    pod 'ApiAI/VoiceFileRequest' #, :path => '../'
+    pod 'ApiAI/ResponseMapping' #, :path => '../'
+end
+

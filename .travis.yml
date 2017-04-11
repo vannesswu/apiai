@@ -1,0 +1,25 @@
+language: objective-c
+osx_image: xcode8.2
+bundler_args: --retry 3
+git:
+  depth: 2
+branches:
+  only:
+    - master
+    - dev
+script:
+    - xcodebuild -project ApiAI.xcodeproj -scheme ApiAITests -sdk iphonesimulator -destination 'id=8188B40E-F57F-4519-AC47-E43D884B9016' build test
+    - pod install --project-directory=./ApiAIDemo
+    - xcodebuild -workspace ApiAIDemo/ApiAIDemo.xcworkspace -scheme ApiAIDemo -sdk iphonesimulator build
+    - pod install --project-directory=./ApiAIDemoSwift
+    - xcodebuild -workspace ApiAIDemoSwift/ApiAIDemoSwift.xcworkspace -scheme ApiAIDemoSwift -sdk iphonesimulator build
+    # - pod install --project-directory=./ApiAIDemoWatchOS
+    # - xcodebuild -workspace ApiAIDemoWatchOS/ApiAIDemoWatchOS.xcworkspace -scheme ApiAIDemoWatchOS clean build CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO
+    - pod install --project-directory=./ApiAIMacOSDemo
+    - xcodebuild -workspace ApiAIMacOSDemo/ApiAIMacOSDemo.xcworkspace -scheme ApiAIMacOSDemo -sdk macosx build
+after_script: set +e
+notifications:
+  email:
+    recipients:
+      - dkuragin@ya.ru
+      - kuragin@speaktoit.com
